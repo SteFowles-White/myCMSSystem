@@ -44,7 +44,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-mongoose.connect('mongodb+srv://AdminStephenFW:875639Ste@cluster0.bfsf8.mongodb.net/CMS?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('', {useNewUrlParser: true, useUnifiedTopology: true})
 .then(result => {
   console.log('CONNECTED')
   app.listen(3000);
