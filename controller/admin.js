@@ -14,7 +14,7 @@ exports.adminCreatePage = (req, res, next) => {
 }
 
 exports.getAdminElementPage = (req, res, next) => {
-    CreateElement.find()
+    CreateElement.find().sort({nameOfElement: 'asc'})
     .then(result => {
         res.render('../views/admin/createElement', 
         { title: "Create Element for Website",
@@ -27,16 +27,19 @@ exports.getAdminElementPage = (req, res, next) => {
     })
 }
 
-exports.postAdminElementPage = (req, res, next) => {
+exports.postAdminCreateElementPage = (req, res, next) => {
     // const nameOfElement = JSON.parse(JSON.stringify(req.body.contentType))
     const nameOfElement = req.body.nameOfElement;
     const typeOfData = req.body.contentType;
+    const numberOfCharacters = req.body.characterLimmit;
 
     if(nameOfElement !== null && nameOfElement !== undefined && nameOfElement !== ""
-        &&  typeOfData !== null &&  typeOfData !== undefined &&  typeOfData !== "" && typeOfData !== "-- Please choose an option --") {
+        &&  typeOfData !== null &&  typeOfData !== undefined &&  typeOfData !== "" && typeOfData !== "-- Please choose an option --"
+        && numberOfCharacters !== null && numberOfCharacters !== undefined && numberOfCharacters !== "") {
             const newElement = new CreateElement({
                 nameOfElement: nameOfElement,
-                typeOfData: typeOfData});
+                typeOfData: typeOfData,
+                numberOfCharacters: numberOfCharacters});
             newElement.save()
             .then(result => {
                 res.redirect('/admin/create-element');
@@ -69,13 +72,15 @@ exports.postEditElement = (req, res, next) => {
     const elementId = req.body.id;
     const newNameOfElement = req.body.nameOfElement;
     const newTypeOfData = req.body.contentType;
+    const newNumberOfCharacters = req.body.editCharacterLimmit;
     const optionCheck = '-- Please choose an option --'
     // console.log(elementId);
     if(newTypeOfData !== optionCheck){
         CreateElement.findOneAndUpdate(
             {_id: elementId}, 
             {nameOfElement: newNameOfElement,
-            typeOfData: newTypeOfData
+            typeOfData: newTypeOfData,
+            numberOfCharacters: newNumberOfCharacters 
         })
         .then(result => {
             console.log('Updated: postEditElementControlFunction');
@@ -87,7 +92,8 @@ exports.postEditElement = (req, res, next) => {
     }else {
         CreateElement.findOneAndUpdate(
             {_id: elementId}, 
-            {nameOfElement: newNameOfElement
+            {nameOfElement: newNameOfElement,
+            numberOfCharacters: newNumberOfCharacters
         })
         .then(result => {
             console.log('Updated: postEditElementControlFunction');

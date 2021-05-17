@@ -4,9 +4,9 @@
 }
 
 .edit__form {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 0px;
     background-color: rgba(0, 0, 0, 0.8);
 }
@@ -23,4 +23,9 @@
 .amend{
     border: solid red;
     border-width: thin;
+}
+.cancel-icon {
+    font-size: 1.5rem;
+    background-color: inherit;
+    border: 0px;
 }

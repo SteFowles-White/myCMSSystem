@@ -6,11 +6,15 @@ const createElement = new Schema ({
         type: String,
         required: true
     },
-    typeOfData : {
+    typeOfData: {
         type: String,
+        required: true
+    },
+    numberOfCharacters: {
+        type: Number,
         required: true
     }
 
-})
+});
 
 module.exports = mongoose.model('createElement', createElement)

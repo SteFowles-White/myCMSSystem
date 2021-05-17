@@ -25,7 +25,7 @@
                                 <label for="nameOfElement">Name of element</label>
                                 <input type="text" name="nameOfElement" class="form-control" id="nameOfElement" placeholder="Name of element">
                             </div>
-                            <div class="form-group pb-5 pt-3">
+                            <div class="form-group pb-3 pt-3">
                                 <label for="contentType">Data types ( the input allowed in the selected element ) </label>
                                 <select name="contentType" class="form-control" id="contentType">
                                     <option>-- Please choose an option --</option>
@@ -35,7 +35,19 @@
                                     <option value="Color">Background Color</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2">Add Element</button>
+                            <div class="form-group pb-5 pt-3">
+                                <label for="characterLimmit">Character limmit </label>
+                                <input type="number" 
+                                        name="characterLimmit" 
+                                        class="form-control" 
+                                        id="characterLimmit" 
+                                        placeholder="Max number of charater allowed"
+                                        min="0"
+                                        max="99999">
+                            </div>
+                            <div class="form-group pb-2 pt-3 text-center">                    
+                              <button type="submit" class="btn btn-primary mb-2 col-4">Add Element</button>
+                            </div>
                          </fieldset>
                       </form>
                   </div>
@@ -52,6 +64,7 @@
                               <tr>
                                 <th scope="col">Create Element</th>
                                 <th scope="col">Text</th>
+                                <th scope="col">Number of Characters</th>
                                 <th scope="col">Edit</th>
                                 <th scope="col">Delete</th>
                               </tr>
@@ -62,18 +75,19 @@
                               <tr>
                                 <th scope="row"><%= data[x].nameOfElement %></th>
                                 <td><%= data[x].typeOfData %></td>
+                                <td><%= data[x].numberOfCharacters %></td>
                                 <td>
                                   <button type="button" 
                                           onclick="editElement(this.id)" 
                                           id="<%= data[x]._id %>" >
-                                    <i class="fas fa-user-edit"></i>
+                                    <span class="fas fa-user-edit"></span>
                                   </button>
                                 </td>
                                 <td>
                                   <form action="/admin/delete-element" method="post">
                                     <fieldset>
                                       <input id="deleteId" type="hidden" name="deleteId" value="<%= data[x]._id %>">
-                                      <button><i class="fas fa-trash"></i></button>
+                                      <button><span class="fas fa-trash"></span></button>
                                     </fieldset>
                                   </form>
                                 </td>
@@ -87,13 +101,19 @@
         </section>
         <section id="editForm" class="edit__form d-none">
           <div class="edit__form__container">
+            <div class="col-sm-12 pb-2 text-end">
+              <button class="cancel-icon"><span class="far fa-window-close"></span></button>
+            </div>
+            <div class="col-sm-12 pb-4">
+              <h2>Edit Element Information</h2>
+            </div>
             <form action="/admin/edit-element" method="post" onsubmit="return validateForm()" name="editForm">
                 <fieldset>
                   <div class="form-group pb-3">
                       <label for="nameOfElement">Edit name of element</label>
                       <input type="text" name="nameOfElement" class="form-control" id="editNameOfElement" placeholder="Edit name of element">
                   </div>
-                  <div class="form-group pb-5 pt-3">
+                  <div class="form-group pb-3 pt-3">
                       <label for="contentType">Edit data types ( the input allowed in the selected element ) </label>
                       <select name="contentType" class="form-control" id="editContentType">
                           <option>-- Please choose an option --</option>
@@ -103,6 +123,17 @@
                           <option value="Color">Background Color</option>
                       </select>
                   </div>
+                  <div class="form-group pb-5 pt-3">
+                    <label for="characterLimmit">Character limmit </label>
+                    <input type="number" 
+                            name="editCharacterLimmit" 
+                            class="form-control" 
+                            id="editCharacterLimmit" 
+                            placeholder="Max number of charater allowed"
+                            min="0"
+                            max="99999">
+                </div>
+                  
                   <input type="hidden" name="id" id="id" value="">
                   <button type="submit" class="btn btn-primary mb-2">Add Element</button>
               </fieldset>

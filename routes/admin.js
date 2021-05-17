@@ -10,7 +10,7 @@ router.get('/create-page', admin.adminCreatePage);
 
 
 router.get('/create-element', admin.getAdminElementPage);
-router.post('/create-element', admin.postAdminElementPage);
+router.post('/create-element', admin.postAdminCreateElementPage);
 router.post('/delete-element', admin.postDeleteElementPage);
 router.post('/edit-element', admin.postEditElement);
 
