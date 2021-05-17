@@ -79,7 +79,8 @@
                                 <td>
                                   <button type="button" 
                                           onclick="editElement(this.id)" 
-                                          id="<%= data[x]._id %>" >
+                                          id="<%= data[x]._id %>" 
+                                          aria-label="Edit the element <%= data[x].nameOfElement %>">
                                     <span class="fas fa-user-edit"></span>
                                   </button>
                                 </td>
@@ -87,7 +88,8 @@
                                   <form action="/admin/delete-element" method="post">
                                     <fieldset>
                                       <input id="deleteId" type="hidden" name="deleteId" value="<%= data[x]._id %>">
-                                      <button><span class="fas fa-trash"></span></button>
+                                      <button type="button"
+                                              aria-label="Edit the element <%= data[x].nameOfElement %>"><span class="fas fa-trash"></span></button>
                                     </fieldset>
                                   </form>
                                 </td>
@@ -102,7 +104,7 @@
         <section id="editForm" class="edit__form d-none">
           <div class="edit__form__container">
             <div class="col-sm-12 pb-2 text-end">
-              <button class="cancel-icon"><span class="far fa-window-close"></span></button>
+              <button type="button" onclick="cancelEditForm()" class="cancel-icon"><span class="far fa-window-close"></span></button>
             </div>
             <div class="col-sm-12 pb-4">
               <h2>Edit Element Information</h2>
@@ -167,6 +169,11 @@
               return false;
             }
           }
+      }
+
+      function cancelEditForm() {
+        const editFormElement = document.getElementById('editForm');
+        editFormElement.classList.add('d-none');
       }
 
 

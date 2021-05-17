@@ -7,16 +7,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/admin/">Home</a>
+            <a class="nav-link <%= path === 'admin/' ? 'active' : '' %>" aria-current="page" href="/admin/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/admin/create-page">Create Page</a>
+            <a class="nav-link <%= path === 'admin/create-page' ? 'active' : '' %>" href="/admin/create-page">Create Page</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/admin/create-element">Create Element</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="admin/">Pricing</a>
+            <a class="nav-link <%= path === 'admin/create-element' ? 'active' : '' %>"  href="/admin/create-element">Create Element</a>
           </li>
         </ul>
       </div>
