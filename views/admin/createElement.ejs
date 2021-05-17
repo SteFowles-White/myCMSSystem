@@ -1,0 +1,145 @@
+<%- include('../includes/header.ejs'); -%>
+<link rel="stylesheet" href="/stylesheets/style.css">
+
+  </head>
+  <body>
+      <header>
+        <%- include('../includes/nav.ejs'); -%>
+      </header>
+      <main class="container-fluid">
+          <header class="container">
+            <div class="row">
+                <div class="col-sm">
+                  
+                    <h1 class="text-center pt-5 pb-5"><%= title %></h1>
+                </div>
+            </div>
+          </header>
+          <!-- create element button -->
+          <section class="container bg-light pt-3 pb-3">
+              <div class="row">
+                  <div class="col-sm-12">
+                    <form action="/admin/create-element" method="post">
+                        <fieldset>
+                            <div class="form-group pb-3">
+                                <label for="nameOfElement">Name of element</label>
+                                <input type="text" name="nameOfElement" class="form-control" id="nameOfElement" placeholder="Name of element">
+                            </div>
+                            <div class="form-group pb-5 pt-3">
+                                <label for="contentType">Data types ( the input allowed in the selected element ) </label>
+                                <select name="contentType" class="form-control" id="contentType">
+                                    <option>-- Please choose an option --</option>
+                                    <option value="String">Text</option>
+                                    <option value="Number">Number</option>
+                                    <option value="Document">Image</option>
+                                    <option value="Color">Background Color</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Add Element</button>
+                         </fieldset>
+                      </form>
+                  </div>
+              </div>
+          </section>
+          <!-- current element -->
+          <section class="container mt-5">
+            <div class="row">
+                <div class="col-sm-12 bg-light">
+                  <% if (data.length > 0) {   %>
+                    <table class="table">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">Create Element</th>
+                                <th scope="col">Text</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <!-- <%= data[0].nameOfElement %> -->
+                              <% for (let x = 0; x < data.length; x++) {   %>
+                              <tr>
+                                <th scope="row"><%= data[x].nameOfElement %></th>
+                                <td><%= data[x].typeOfData %></td>
+                                <td>
+                                  <button type="button" 
+                                          onclick="editElement(this.id)" 
+                                          id="<%= data[x]._id %>" >
+                                    <i class="fas fa-user-edit"></i>
+                                  </button>
+                                </td>
+                                <td>
+                                  <form action="/admin/delete-element" method="post">
+                                    <fieldset>
+                                      <input id="deleteId" type="hidden" name="deleteId" value="<%= data[x]._id %>">
+                                      <button><i class="fas fa-trash"></i></button>
+                                    </fieldset>
+                                  </form>
+                                </td>
+                              </tr>
+                              <% }  %>
+                            </tbody>
+                          </table>
+                          <% }  %>
+                </div>
+            </div>
+        </section>
+        <section id="editForm" class="edit__form d-none">
+          <div class="edit__form__container">
+            <form action="/admin/edit-element" method="post" onsubmit="return validateForm()" name="editForm">
+                <fieldset>
+                  <div class="form-group pb-3">
+                      <label for="nameOfElement">Edit name of element</label>
+                      <input type="text" name="nameOfElement" class="form-control" id="editNameOfElement" placeholder="Edit name of element">
+                  </div>
+                  <div class="form-group pb-5 pt-3">
+                      <label for="contentType">Edit data types ( the input allowed in the selected element ) </label>
+                      <select name="contentType" class="form-control" id="editContentType">
+                          <option>-- Please choose an option --</option>
+                          <option value="String">Text</option>
+                          <option value="Number">Number</option>
+                          <option value="Document">Image</option>
+                          <option value="Color">Background Color</option>
+                      </select>
+                  </div>
+                  <input type="hidden" name="id" id="id" value="">
+                  <button type="submit" class="btn btn-primary mb-2">Add Element</button>
+              </fieldset>
+            </form>
+          </div>
+        </section>
+      </main>
+  </body>
+  <footer>
+    <script>
+
+      function editElement(id) {
+        const editFormElement = document.getElementById('editForm');
+
+        let formId = document.getElementById('id');
+        formId.setAttribute('value', id);
+        editFormElement.classList.remove('d-none');
+      }
+      function validateForm() {
+        const updatedElementName = document.forms['editForm']['nameOfElement'].value;
+        const updatedElementType = document.forms['editForm']['contentType'].value;
+        const optionCheck = '-- Please choose an option --';
+          if(updatedElementName === "" ||
+          updatedElementType === optionCheck){
+            if(updatedElementName === ""){
+              document.getElementById('editNameOfElement').classList.add('amend');
+              return false;
+            }
+            if (updatedElementType === optionCheck) {
+              document.getElementById('editContentType').classList.add('amend');
+              return false;
+            }
+          }
+      }
+
+
+    </script>
+
+<%- include('../includes/footer.ejs'); -%>
+

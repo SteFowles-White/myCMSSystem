@@ -1,0 +1,177 @@
+<%- include('../includes/header.ejs'); -%>
+
+  </head>
+  <body>
+      <header>
+        <%- include('../includes/nav.ejs'); -%>
+      </header>
+      <main class="container-fluid">
+          <header class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <h1 class="text-center pt-5 pb-5"><%= title %></h1>
+                </div>
+            </div>
+          </header>
+          <section class="container px-4">
+              <div class="row">
+                    <div class="col-sm-12 p-3">
+                            <div class="bg-secondary p-3">
+                                <a class="btn btn-primary" href="admin/create-page" role="button">Create a page</a>
+                            </div>
+                    </div>
+                    <div class="col-sm-4 p-3">
+                        <div id="elementContainer" class="bg-secondary p-3 drop-zone">               
+                            <!-- <div id="text1" draggable="true" class="draggable">Text</div>
+                            <div id="url1" draggable="true" class="draggable">Url</div>
+                            <div id="number1" draggable="true" class="draggable">Number</div>
+                            <div id="image1"  draggable="true" class="draggable">Image</div> -->
+                        </div>
+                        <div><button id="addElement">Add Element</button></div>
+                    </div>
+                    <div class="col-sm-8 p-3">
+                        <div class="bg-secondary p-3">               
+                            <div id="onDropTable" class="bg-light drop-zone" style="min-height: 40px;">
+                                <form action=""> <!-- this will need a action a method once completed-->
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Name of Page</label>
+                                        <input type="text" class="form-control" id="name" value="Name of element">
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="name" class="form-label">Name of Page</label>
+                                        <input type="text" class="form-control" id="name" value="Name of element">
+                                      </div>
+                                      <button id="createElement">Add Element</button>
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+          </section>
+          <article id="addElementModel" class="container bg-primary d-none">
+              <div class="row">
+                  <div class="col-sm-12">
+                    <form action="">
+                        <div class="mb-3">
+                            <label for="createdName" class="form-label">Name of element</label>
+                            <input type="text" class="form-control" id="createdName" placeholder="Name of element">
+                          </div>
+                          <div class="mb-3">
+                            <label for="dataType" class="form-label">Data type</label>
+                            <select class="form-select" aria-label="Select data type of the element" id="dataType">
+                                <option value="Text" selected>Text</option>
+                                <option value="URL">URL</option>
+                                <option value="Number">Number</option>
+                                <option value="Image">Image</option>
+                                <option value="Heading">Heading</option>
+                                <option value="Background-color">Background-color</option>
+                              </select>
+                          </div>
+                          <button id="createFormElement">Add Element</button>
+                      </form>
+                  </div>
+              </div>
+          </article>
+      </main>
+  </body>
+  <footer>
+      <script>
+
+        // refernce to this code is https://www.youtube.com/watch?v=jfYWwQrtzzY
+
+        const draggables = document.querySelectorAll('.draggable');
+        const containers = document.querySelectorAll('.drop-zone');
+
+        draggables.forEach(draggables  => {
+            draggables.addEventListener('dragstart', event => {
+             event.target.classList.add('dragging');
+            })
+            draggables.addEventListener('dragend', event => {
+                event.target.classList.remove('dragging');
+            })
+        })
+        containers.forEach(container => {
+            container.addEventListener('dragover', event => {
+                event.preventDefault;
+                const afterElement = getDragAfterElement(container, event.clientY);
+                const draggable = document.querySelector('.dragging');
+                if (afterElement == null){
+                    container.appendChild(draggable);
+                }
+                else {
+                    container.insertBefore(draggable, afterElement);
+                }
+            })
+        })
+
+        function getDragAfterElement(container, y) {
+
+            const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')];
+            return draggableElements.reduce((closest, child ) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2 ;
+                if(offset < 0 && offset > closest.offset) {
+                    return{ offset: offset, 
+                            element: child}
+                }
+                else {
+                    return closest
+                }
+                
+
+            }, {offset: Number.NEGATIVE_INFINITY}).element
+
+        }
+
+        // Creation of a Page Forms - used on route for createPage.ejs 
+    
+        const addElementButton = document.getElementById('addElement');
+        const addElementModal = document.getElementById('addElementModel');
+
+        addElementButton.addEventListener('click', event => {
+            // console.log(addElementModal.classList);
+            addElementModal.classList.remove('d-none');
+        })
+
+        const createElementButton = document.getElementById('createFormElement');
+
+        function createElementDiv (id, name, data) {    
+            const div = document.createElement('div');
+            const content = document.createTextNode(name);
+            div.setAttribute('class', 'draggable');
+            div.setAttribute('draggable', 'true');
+            div.setAttribute('id', id);
+            div.setAttribute('data', data);
+            
+            div.appendChild(content);
+
+            console.log(div)
+            return div;
+            // console.log(div);
+
+        }
+
+        createElementButton.addEventListener('click', event => {
+            event.preventDefault()
+            const getName = document.getElementById('createdName').value;
+            const getDataType = document.getElementById('dataType');
+            const id = getDataType.value + '1';
+
+            const newDivElement = createElementDiv(id, getName, getDataType.value);
+            const elementContainer = document.getElementById('elementContainer');
+
+            console.log(elementContainer);
+
+            // Create a div element in this forate <div id="url1" draggable="true" class="draggable">Url</div>
+            // elementContainer.appendChild();
+
+            //apend div onto 
+
+            //hide the modal
+            addElementModal.classList.add('d-none');
+        })
+
+      </script>
+
+<%- include('../includes/footer.ejs'); -%>
+
