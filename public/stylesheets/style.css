@@ -29,3 +29,9 @@
     background-color: inherit;
     border: 0px;
 }
+
+.dragable__list div{
+    margin: .5rem;
+    background-color: #fff;
+    padding: .2rem;
+}

@@ -14,7 +14,7 @@ exports.adminHomePage = (req, res, next) => {
 }
 
 exports.adminCreatePage = (req, res, next) => {
-    CreateElement.find()
+    CreateElement.find().sort({nameOfElement: 'asc'})
     .then(result => {
         console.log(result);
         res.render('../views/admin/createPage', 
