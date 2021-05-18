@@ -21,13 +21,25 @@
                             </div>
                     </div>
                     <div class="col-sm-4 p-3">
-                        <div id="elementContainer" class="bg-secondary p-3 drop-zone">               
+                        <div id="elementContainer" class="bg-secondary p-3 drop-zone">  
+                             <% if(elements.length > 0) { 
+                                 for (let i = 0; i  < elements.length; i++) { %>
+                                    <div id="url1" draggable="true" class="draggable"><%= elements[i].nameOfElement %></div>                           
+                            
+                            
+                            
+                            <%  } }else  {  %>
+                            
+                            
+                                <p>Currently no element to choose</p>           
+                            
+                            
+                            <%  } %>             
                             <!-- <div id="text1" draggable="true" class="draggable">Text</div>
-                            <div id="url1" draggable="true" class="draggable">Url</div>
+
                             <div id="number1" draggable="true" class="draggable">Number</div>
                             <div id="image1"  draggable="true" class="draggable">Image</div> -->
                         </div>
-                        <div><button id="addElement">Add Element</button></div>
                     </div>
                     <div class="col-sm-8 p-3">
                         <div class="bg-secondary p-3">               

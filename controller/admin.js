@@ -1,6 +1,10 @@
 const CreateElement = require('../model/createElements');
 
-// Get REquest for each of the admin pages
+
+
+//------------------------------------------------------
+//   Get requests for the admin element pages
+//------------------------------------------------------
 
 exports.adminHomePage = (req, res, next) => {
     res.render('../views/admin/adminIndex', 
@@ -10,9 +14,17 @@ exports.adminHomePage = (req, res, next) => {
 }
 
 exports.adminCreatePage = (req, res, next) => {
-    res.render('../views/admin/createPage', 
-    { title: "Admin create page",
-      path: "admin/create-page"});
+    CreateElement.find()
+    .then(result => {
+        console.log(result);
+        res.render('../views/admin/createPage', 
+        { title: "Admin create page",
+          path: "admin/create-page",
+          elements: result});
+    })
+    .catch(err => {
+        console.log('results');
+    })
     
 }
 
@@ -30,6 +42,7 @@ exports.getAdminElementPage = (req, res, next) => {
         console.log('getAdminElementPage: ', err);
     })
 }
+
 
 
 //------------------------------------------------------
