@@ -8,6 +8,7 @@ const router = express.Router();
 router.get('/', admin.adminHomePage);
 router.get('/create-page', admin.adminCreatePage);
 router.post('/create-page', admin.postCreatePage);
+router.post('/delete-page', admin.postDeletePage);
 
 // This is the create element routes
 router.get('/create-element', admin.getAdminElementPage);

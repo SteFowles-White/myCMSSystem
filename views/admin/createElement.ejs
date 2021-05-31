@@ -60,7 +60,6 @@
             <div class="row">
                 <div class="col-sm-12 bg-light">
                   <% if (data.length > 0) {   %>
-                    <table class="table">
                         <table class="table table-hover">
                             <thead>
                               <tr>
@@ -87,7 +86,7 @@
                                   </button>
                                 </td>
                                 <td>
-                                  <form action="/admin/delete-element" method="post">
+                                  <form action="/admin/delete-page" method="post">
                                     <fieldset>
                                       <input id="deleteId" type="hidden" name="deleteId" value="<%= data[x]._id %>">
                                       <button type="button"

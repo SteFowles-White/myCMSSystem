@@ -15,11 +15,11 @@ exports.adminHomePage = (req, res, next) => {
 }
 
 exports.adminCreatePage = (req, res, next) => {
-    CreateElement.find().sort({nameOfElement: 'asc'})
+    CreatePage.find().sort({nameOfPage: 'asc'})
     .then(result => {
         // console.log(result);
         res.render('../views/admin/createPage', 
-        { title: "Admin create page",
+        { title: "Admin Create Page",
           path: "admin/create-page",
           elements: result});
     })
@@ -163,5 +163,21 @@ exports.postCreatePage = (req, res, next) => {
     }).catch(err => {
         console.log('CREATE PAGE FAILED')
     });
+
+}
+
+exports.postDeletePage = (req, res, next) => {
+    console.log('HERE')
+    const deleteId = req.body.deleteId;
+    CreatePage.deleteOne({_id: deleteId}, () => {
+        res.redirect('/admin/create-page');
+    })
+    .then(result => {
+        // console.log('this is the id:', id);
+ 
+    })
+    .catch(err => {
+        console.log('postDeleteElementPage: ', err);
+    })
 
 }
