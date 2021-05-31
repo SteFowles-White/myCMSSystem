@@ -7,13 +7,46 @@
         <%- include('../includes/nav.ejs'); -%>
       </header>
       <main class="container-fluid">
-          <header class="container">
-            <div class="row">
-                <div class="col-sm">
-                    <h1 class="text-center pt-5 pb-5"><%= title %></h1>
+            <header class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <h1 class="text-center pt-5 pb-5"><%= title %></h1>
+                    </div>
                 </div>
-            </div>
-          </header>
+            </header>
+            <!-- create a page form -->
+            <section class="container px-4">
+                <div class="row">
+                    <div class="col-sm-12 p-3">
+                        <div class="bg-secondary p-3">
+                            <form action="/admin/create-page" method="POST">
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-3">
+                                            <label for="nameOfPage" class="form-label">Name of Page</label>
+                                            <input type="text" class="form-control" id="nameOfPage" name="nameOfPage" placeholder="Name of Page">
+                                        </div>
+                                        <div class="col-sm-6 mb-3">
+                                            <label for="titleOfPage" class="form-label">Title</label>
+                                            <input type="text" class="form-control" id="titleOfPage" name="titleOfPage" placeholder="Title of the New Page">
+                                        </div>
+                                        <div class="col-sm-6 mb-3">
+                                            <label for="metaDescirptionOfPage" class="form-label">Meta</label>
+                                            <input type="text" class="form-control" id="metaDescirptionOfPage" name="metaDescirptionOfPage" placeholder="SEO description of new page">
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <button type="submit" class="btn btn-primary">Create a new page</button>
+                                        </div>
+                                    </div>
+                                  <fieldset>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+          <!-- current pages -->
+
           <section class="container px-4">
               <div class="row">
                     <div class="col-sm-12 p-3">
@@ -119,6 +152,7 @@
             })
         })
 
+        //review this function to understand more
         function getDragAfterElement(container, y) {
 
             const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')];
@@ -146,44 +180,6 @@
         addElementButton.addEventListener('click', event => {
             // console.log(addElementModal.classList);
             addElementModal.classList.remove('d-none');
-        })
-
-        const createElementButton = document.getElementById('createFormElement');
-
-        function createElementDiv (id, name, data) {    
-            const div = document.createElement('div');
-            const content = document.createTextNode(name);
-            div.setAttribute('class', 'draggable');
-            div.setAttribute('draggable', 'true');
-            div.setAttribute('id', id);
-            div.setAttribute('data', data);
-            
-            div.appendChild(content);
-
-            console.log(div)
-            return div;
-            // console.log(div);
-
-        }
-
-        createElementButton.addEventListener('click', event => {
-            event.preventDefault()
-            const getName = document.getElementById('createdName').value;
-            const getDataType = document.getElementById('dataType');
-            const id = getDataType.value + '1';
-
-            const newDivElement = createElementDiv(id, getName, getDataType.value);
-            const elementContainer = document.getElementById('elementContainer');
-
-            console.log(elementContainer);
-
-            // Create a div element in this forate <div id="url1" draggable="true" class="draggable">Url</div>
-            // elementContainer.appendChild();
-
-            //apend div onto 
-
-            //hide the modal
-            addElementModal.classList.add('d-none');
         })
 
       </script>

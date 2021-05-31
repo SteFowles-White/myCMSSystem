@@ -1,4 +1,5 @@
 const CreateElement = require('../model/createElements');
+const CreatePage = require('../model/createPage');
 
 
 
@@ -16,7 +17,7 @@ exports.adminHomePage = (req, res, next) => {
 exports.adminCreatePage = (req, res, next) => {
     CreateElement.find().sort({nameOfElement: 'asc'})
     .then(result => {
-        console.log(result);
+        // console.log(result);
         res.render('../views/admin/createPage', 
         { title: "Admin create page",
           path: "admin/create-page",
@@ -91,7 +92,7 @@ exports.postDeleteElementPage = (req, res, next) => {
         res.redirect('/admin/create-element');
     })
     .then(result => {
-        console.log('this is the id:', id);
+        // console.log('this is the id:', id);
  
     })
     .catch(err => {
@@ -120,7 +121,7 @@ exports.postEditElement = (req, res, next) => {
             numberOfCharacters: newNumberOfCharacters 
         })
         .then(result => {
-            console.log('Updated: postEditElementControlFunction');
+            // console.log('Updated: postEditElementControlFunction');
             res.redirect('/admin/create-element');
         })
         .catch(err => {
@@ -134,11 +135,33 @@ exports.postEditElement = (req, res, next) => {
              numberOfCharacters: newNumberOfCharacters
         })
         .then(result => {
-            console.log('Updated: postEditElementControlFunction');
+            // console.log('Updated: postEditElementControlFunction');
             res.redirect('/admin/create-element');
         })
         .catch(err => {
             console.log('admin.js postEditElement: ', err);
         })
     }
+}
+
+exports.postCreatePage = (req, res, next) => {
+    const pageName = req.body.nameOfPage;
+    const titleName = req.body.titleOfPage;
+    const metaDescriptionName = req.body.metaDescirptionOfPage;
+
+    console.log(pageName, titleName, metaDescriptionName);
+    console.log(req.body);
+    const createPage = new CreatePage({
+        nameOfPage: pageName,
+        titleOfPage: titleName,
+        metaDescription: metaDescriptionName
+    });
+    // console.log(createPage);
+    createPage.save()
+    .then(result => {
+        res.redirect('/admin/create-page')
+    }).catch(err => {
+        console.log('CREATE PAGE FAILED')
+    });
+
 }
